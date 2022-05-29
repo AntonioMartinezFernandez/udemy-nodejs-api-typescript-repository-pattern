@@ -1,0 +1,24 @@
+{
+  "name": "udemy-nodejs-api-typescript-repository-pattern",
+  "version": "1.0.0",
+  "description": "Code of Udemy course https://www.udemy.com/course/node-js-apis-poderosas-con-typescript-repository-pattern",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntonioMartinezFernandez/udemy-nodejs-api-typescript-repository-pattern.git"
+  },
+  "author": "Antonio Martínez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AntonioMartinezFernandez/udemy-nodejs-api-typescript-repository-pattern/issues"
+  },
+  "homepage": "https://github.com/AntonioMartinezFernandez/udemy-nodejs-api-typescript-repository-pattern#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.1",
+    "@commitlint/config-conventional": "^17.0.0",
+    "husky": "^8.0.1"
+  }
+}
