@@ -4,7 +4,15 @@
   "description": "Code of Udemy course https://www.udemy.com/course/node-js-apis-poderosas-con-typescript-repository-pattern",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon",
+    "build": "tsc",
+    "lint": "eslint \"{src,test}/**/*.ts\"",
+    "lint:fix": "eslint \"{src,test}/**/*.ts\" --fix",
+    "test": "jest --watch",
+    "test:all": "jest --watchAll",
+    "test:unit": "jest --config=jest.config.unit.ts",
+    "test:integration": "jest --config=jest.config.integration.ts",
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -19,6 +27,17 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.1",
     "@commitlint/config-conventional": "^17.0.0",
-    "husky": "^8.0.1"
+    "@types/node": "^17.0.36",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.1",
+    "nodemon": "^2.0.16",
+    "prettier": "^2.6.2",
+    "ts-jest": "^28.0.3",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
   }
 }
