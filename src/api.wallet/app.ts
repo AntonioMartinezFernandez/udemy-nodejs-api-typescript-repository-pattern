@@ -8,8 +8,17 @@ dotenv.config({
   path: `${__dirname}/config/${process.env.APP_ENV}.env`,
 });
 
+// Dependencies
 import express from 'express';
 
+// Dependency Injection Container
+import { container } from './container';
+import { TestService } from './services/test.service';
+
+const testService = container.resolve<TestService>('testService');
+console.log(testService.getDate());
+
+// App
 const app: express.Application = express();
 
 app.get('/', (req: express.Request, res: express.Response) => {
