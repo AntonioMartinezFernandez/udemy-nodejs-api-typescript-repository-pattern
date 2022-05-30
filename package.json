@@ -4,7 +4,8 @@
   "description": "Code of Udemy course https://www.udemy.com/course/node-js-apis-poderosas-con-typescript-repository-pattern",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon",
+    "dev:api": "ts-node-dev --respawn src/api.wallet/server.ts",
+    "dev:auth": "ts-node-dev --respawn src/auth.wallet/server.ts",
     "build": "tsc",
     "lint": "eslint \"{src,test}/**/*.ts\"",
     "lint:fix": "eslint \"{src,test}/**/*.ts\" --fix",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.1",
     "@commitlint/config-conventional": "^17.0.0",
+    "@types/express": "^4.17.13",
     "@types/node": "^17.0.36",
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.26.0",
@@ -34,10 +36,14 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.1",
-    "nodemon": "^2.0.16",
     "prettier": "^2.6.2",
     "ts-jest": "^28.0.3",
     "ts-node": "^10.8.0",
+    "ts-node-dev": "^2.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
     "typescript": "^4.7.2"
   }
 }
