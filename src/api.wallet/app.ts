@@ -10,21 +10,15 @@ dotenv.config({
 
 // Dependencies
 import express from 'express';
-
-// Dependency Injection Container
-import { container } from './container';
-import { TestService } from './services/test.service';
-
-const testService = container.resolve<TestService>('testService');
-console.log(testService.getDate());
+import { loadControllers } from 'awilix-express';
 
 // App
 const app: express.Application = express();
 
-app.get('/', (req: express.Request, res: express.Response) => {
-  res
-    .status(200)
-    .send({ status: 'healthy', 'app environment': `${process.env.APP_ENV}` });
-});
+// Dependency Injection Container
+import loadContainer from './container';
+loadContainer(app);
+
+app.use(loadControllers('controllers/*.ts', { cwd: __dirname }));
 
 export { app };

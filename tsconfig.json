@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "experimentalDecorators": true,
     "module": "commonjs",
     "target": "es2019",
     "allowJs": true,
@@ -17,5 +18,7 @@
     // }
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "javascript.implicitProjectConfig.experimentalDecorators": true,
+  "javascript.implicitProjectConfig.emitDecoratorMetadata": true
 }
