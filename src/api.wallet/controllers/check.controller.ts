@@ -4,7 +4,7 @@ import { TestService } from '../services/test.service';
 
 @route('/')
 export class CheckController {
-  constructor(private readonly testService: TestService) {}
+  constructor(private readonly testServiceContainer: TestService) {}
 
   @route('status')
   @GET()
@@ -17,6 +17,6 @@ export class CheckController {
   @route('date')
   @GET()
   public status(req: Request, res: Response): void {
-    res.status(200).send({ date: this.testService.getDate() });
+    res.status(200).send({ date: this.testServiceContainer.getDate() });
   }
 }

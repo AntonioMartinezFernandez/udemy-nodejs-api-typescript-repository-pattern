@@ -15,10 +15,13 @@ import { loadControllers } from 'awilix-express';
 // App
 const app: express.Application = express();
 
-// Dependency Injection Container
-import loadContainer from './container';
-loadContainer(app);
+// Body Parser
+app.use(express.json());
 
-app.use(loadControllers('controllers/*.ts', { cwd: __dirname }));
+// Dependency Injection Container
+import containerLoader from './container';
+containerLoader(app);
+
+app.use(loadControllers('controllers/**/*', { cwd: __dirname }));
 
 export { app };

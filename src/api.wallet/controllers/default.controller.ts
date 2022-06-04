@@ -4,7 +4,7 @@ import { TestService } from '../services/test.service';
 
 @route('/')
 export class DefaultController {
-  constructor(private readonly testService: TestService) {}
+  constructor() {}
 
   @GET()
   public index(req: Request, res: Response): void {
