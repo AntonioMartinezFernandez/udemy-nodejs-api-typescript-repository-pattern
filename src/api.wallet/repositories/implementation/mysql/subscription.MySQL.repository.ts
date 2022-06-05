@@ -1,17 +1,18 @@
-import { SubscriptionRepository } from '../subscription.repository';
-import { Subscription } from '../domain/subscription';
-import { connector } from '../../common/persistence/mysql.persistence';
+import { SubscriptionRepository } from '../../subscription.repository';
+import { Subscription } from '../../domain/subscription';
+
+import { connector } from '../../../common/persistence/mysql.persistence';
 
 export class SubscriptionMySQLRepository implements SubscriptionRepository {
   public async all(): Promise<Subscription[]> {
-    const [rows] = await connector.execute(
+    const [rows]: any[] = await connector.execute(
       'SELECT * from wallet_subscription ORDER BY id DESC',
     );
 
     return rows as Subscription[];
   }
 
-  public async findById(id: Number): Promise<Subscription | null> {
+  public async find(id: number): Promise<Subscription | null> {
     const [rows]: any[] = await connector.execute(
       'SELECT * from wallet_subscription WHERE id = ?',
       [id],
@@ -24,7 +25,7 @@ export class SubscriptionMySQLRepository implements SubscriptionRepository {
   }
 
   public async findByUserAndCode(
-    user_id: Number,
+    user_id: number,
     code: string,
   ): Promise<Subscription | null> {
     const [rows]: any[] = await connector.execute(
@@ -46,7 +47,7 @@ export class SubscriptionMySQLRepository implements SubscriptionRepository {
     );
   }
 
-  public async update(id: Number, entry: Subscription): Promise<void> {
+  public async update(id: number, entry: Subscription): Promise<void> {
     const now = new Date();
     await connector.execute(
       'UPDATE wallet_subscription SET user_id = ?, code = ?, amount = ?, cron = ?, updated_at = ? WHERE id = ?',
@@ -54,7 +55,7 @@ export class SubscriptionMySQLRepository implements SubscriptionRepository {
     );
   }
 
-  public async remove(id: Number): Promise<void> {
+  public async remove(id: number): Promise<void> {
     await connector.execute('DELETE FROM wallet_subscription WHERE id = ?', [
       id,
     ]);

@@ -6,12 +6,12 @@ import { Subscription } from './domain/subscription';
 
 export interface SubscriptionRepository {
   all(): Promise<Subscription[]>;
-  findById(id: Number): Promise<Subscription | null>;
+  find(id: number): Promise<Subscription | null>;
   findByUserAndCode(
-    user_id: Number,
+    user_id: number,
     code: string,
   ): Promise<Subscription | null>;
   store(entry: SubscriptionCreateDto): Promise<void>;
-  update(id: Number, entry: SubscriptionUpdateDto): Promise<void>;
-  remove(id: Number): Promise<void>;
+  update(id: number, entry: SubscriptionUpdateDto): Promise<void>;
+  remove(id: number): Promise<void>;
 }

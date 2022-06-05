@@ -14,8 +14,8 @@ export class SubscriptionService {
     return this.subscriptionRepoContainer.all();
   }
 
-  public async find(id: Number): Promise<Subscription | null> {
-    return this.subscriptionRepoContainer.findById(id);
+  public async find(id: number): Promise<Subscription | null> {
+    return this.subscriptionRepoContainer.find(id);
   }
 
   public async store(entry: SubscriptionCreateDto): Promise<void> {
@@ -32,10 +32,8 @@ export class SubscriptionService {
     }
   }
 
-  public async update(id: Number, entry: SubscriptionUpdateDto): Promise<void> {
-    const originalSubscription = await this.subscriptionRepoContainer.findById(
-      id,
-    );
+  public async update(id: number, entry: SubscriptionUpdateDto): Promise<void> {
+    const originalSubscription = await this.subscriptionRepoContainer.find(id);
 
     const existSubscription =
       await this.subscriptionRepoContainer.findByUserAndCode(
@@ -57,7 +55,7 @@ export class SubscriptionService {
     }
   }
 
-  public async remove(id: Number): Promise<void> {
+  public async remove(id: number): Promise<void> {
     return this.subscriptionRepoContainer.remove(id);
   }
 }
