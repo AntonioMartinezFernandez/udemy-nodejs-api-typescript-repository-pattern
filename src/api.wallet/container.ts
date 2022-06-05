@@ -3,7 +3,7 @@ import { createContainer, asClass } from 'awilix';
 import { scopePerRequest } from 'awilix-express';
 
 import { TestService } from './services/test.service';
-import { SubscriptionMySQLRepository } from './services/repositories/implementation/subscription.MySQL.repository';
+import { SubscriptionMySQLRepository } from './repositories/implementation/subscription.MySQL.repository';
 import { SubscriptionService } from './services/subscription.service';
 
 const containerLoader = (app: express.Application) => {

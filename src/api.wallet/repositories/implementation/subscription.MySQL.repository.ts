@@ -1,6 +1,6 @@
 import { SubscriptionRepository } from '../subscription.repository';
 import { Subscription } from '../domain/subscription';
-import { connector } from '../../../common/persistence/mysql.persistence';
+import { connector } from '../../common/persistence/mysql.persistence';
 
 export class SubscriptionMySQLRepository implements SubscriptionRepository {
   public async all(): Promise<Subscription[]> {
