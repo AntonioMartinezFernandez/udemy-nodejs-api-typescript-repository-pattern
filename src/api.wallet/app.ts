@@ -1,18 +1,18 @@
-// Env variables
+// Environment variables
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 process.env.APP_ENV = process.env.APP_ENV || 'development';
 
-// Env files
+// Environment configuration files
 import dotenv from 'dotenv';
 dotenv.config({
   path: `${__dirname}/config/${process.env.APP_ENV}.env`,
 });
 
-// Dependencies
+// Libraries
 import express from 'express';
 import { loadControllers } from 'awilix-express';
 
-// App
+// Express app instance
 const app: express.Application = express();
 
 // Body Parser
@@ -22,6 +22,8 @@ app.use(express.json());
 import containerLoader from './container';
 containerLoader(app);
 
+// Controllers loader
 app.use(loadControllers('controllers/**/*', { cwd: __dirname }));
 
+// Export app instance
 export { app };
