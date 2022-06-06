@@ -1,17 +1,17 @@
 import {
-  SubscriptionCreateDto,
-  SubscriptionUpdateDto,
+  ISubscriptionCreateDto,
+  ISubscriptionUpdateDto,
 } from 'src/api.wallet/dtos/subscription.dto';
-import { Subscription } from './domain/subscription';
+import { ISubscription } from './domain/subscription';
 
-export interface SubscriptionRepository {
-  all(): Promise<Subscription[]>;
-  find(id: number): Promise<Subscription | null>;
+export interface ISubscriptionRepository {
+  all(): Promise<ISubscription[]>;
+  find(id: number): Promise<ISubscription | null>;
   findByUserAndCode(
     user_id: number,
     code: string,
-  ): Promise<Subscription | null>;
-  store(entry: SubscriptionCreateDto): Promise<void>;
-  update(id: number, entry: SubscriptionUpdateDto): Promise<void>;
+  ): Promise<ISubscription | null>;
+  store(entry: ISubscriptionCreateDto): Promise<void>;
+  update(id: number, entry: ISubscriptionUpdateDto): Promise<void>;
   remove(id: number): Promise<void>;
 }

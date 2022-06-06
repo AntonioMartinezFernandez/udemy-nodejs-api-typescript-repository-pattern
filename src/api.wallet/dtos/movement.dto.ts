@@ -1,6 +1,6 @@
 import { MovementType } from '../common/enums/movementType';
 
-export interface MovementCreateDto {
+export interface IMovementCreateDto {
   type: MovementType;
   user_id: number;
   amount: number;

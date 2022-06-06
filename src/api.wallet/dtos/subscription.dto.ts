@@ -1,11 +1,11 @@
-export interface SubscriptionCreateDto {
+export interface ISubscriptionCreateDto {
   code: string;
   user_id: number;
   amount: number;
   cron: string;
 }
 
-export interface SubscriptionUpdateDto {
+export interface ISubscriptionUpdateDto {
   code: string;
   user_id: number;
   amount: number;

@@ -3,8 +3,8 @@ import { Request, Response } from 'express';
 import { route, GET, POST, PUT, DELETE } from 'awilix-express';
 import { SubscriptionService } from '../services/subscription.service';
 import {
-  SubscriptionCreateDto,
-  SubscriptionUpdateDto,
+  ISubscriptionCreateDto,
+  ISubscriptionUpdateDto,
 } from '../dtos/subscription.dto';
 import { ApplicationException } from '../common/exceptions/application.exception';
 
@@ -66,7 +66,7 @@ export class SubscriptionController extends BaseController {
         user_id,
         amount,
         cron,
-      } as SubscriptionCreateDto);
+      } as ISubscriptionCreateDto);
 
       res.sendStatus(200);
     } catch (error) {
@@ -88,7 +88,7 @@ export class SubscriptionController extends BaseController {
         amount,
         cron,
         updated_at: new Date(),
-      } as SubscriptionUpdateDto);
+      } as ISubscriptionUpdateDto);
 
       res.sendStatus(200);
     } catch (error) {

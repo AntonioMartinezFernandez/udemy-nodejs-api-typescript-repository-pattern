@@ -1,6 +1,6 @@
 import { MovementType } from 'src/api.wallet/common/enums/movementType';
 
-export interface Movement {
+export interface IMovement {
   id: number;
   user_id: number;
   type: MovementType;

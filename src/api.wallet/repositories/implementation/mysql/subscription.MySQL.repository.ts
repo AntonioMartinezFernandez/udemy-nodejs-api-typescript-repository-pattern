@@ -1,25 +1,25 @@
-import { SubscriptionRepository } from '../../subscription.repository';
-import { Subscription } from '../../domain/subscription';
+import { ISubscriptionRepository } from '../../subscription.repository';
+import { ISubscription } from '../../domain/subscription';
 
 import { connector } from '../../../common/persistence/mysql.persistence';
 
-export class SubscriptionMySQLRepository implements SubscriptionRepository {
-  public async all(): Promise<Subscription[]> {
+export class SubscriptionMySQLRepository implements ISubscriptionRepository {
+  public async all(): Promise<ISubscription[]> {
     const [rows]: any[] = await connector.execute(
       'SELECT * from wallet_subscription ORDER BY id DESC',
     );
 
-    return rows as Subscription[];
+    return rows as ISubscription[];
   }
 
-  public async find(id: number): Promise<Subscription | null> {
+  public async find(id: number): Promise<ISubscription | null> {
     const [rows]: any[] = await connector.execute(
       'SELECT * from wallet_subscription WHERE id = ?',
       [id],
     );
 
     if (rows.length) {
-      return rows[0] as Subscription;
+      return rows[0] as ISubscription;
     }
     return null;
   }
@@ -27,19 +27,19 @@ export class SubscriptionMySQLRepository implements SubscriptionRepository {
   public async findByUserAndCode(
     user_id: number,
     code: string,
-  ): Promise<Subscription | null> {
+  ): Promise<ISubscription | null> {
     const [rows]: any[] = await connector.execute(
       'SELECT * from wallet_subscription WHERE user_id = ? AND code = ?',
       [user_id, code],
     );
 
     if (rows.length) {
-      return rows[0] as Subscription;
+      return rows[0] as ISubscription;
     }
     return null;
   }
 
-  public async store(entry: Subscription): Promise<void> {
+  public async store(entry: ISubscription): Promise<void> {
     const now = new Date();
     await connector.execute(
       'INSERT INTO wallet_subscription(user_id, code, amount, cron, created_at) VALUES(?, ?, ?, ?, ?)',
@@ -47,7 +47,7 @@ export class SubscriptionMySQLRepository implements SubscriptionRepository {
     );
   }
 
-  public async update(id: number, entry: Subscription): Promise<void> {
+  public async update(id: number, entry: ISubscription): Promise<void> {
     const now = new Date();
     await connector.execute(
       'UPDATE wallet_subscription SET user_id = ?, code = ?, amount = ?, cron = ?, updated_at = ? WHERE id = ?',

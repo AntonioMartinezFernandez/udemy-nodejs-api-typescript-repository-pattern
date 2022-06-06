@@ -2,7 +2,7 @@ import { BaseController } from '../common/controllers/base.controller';
 import { Request, Response } from 'express';
 import { route, GET, POST } from 'awilix-express';
 import { MovementService } from '../services/movement.service';
-import { MovementCreateDto } from '../dtos/movement.dto';
+import { IMovementCreateDto } from '../dtos/movement.dto';
 import { ApplicationException } from '../common/exceptions/application.exception';
 
 @route('/movements')
@@ -51,11 +51,11 @@ export class MovementController extends BaseController {
     }
 
     try {
-      const serviceResponse = await this.movementServiceContainer.store({
+      await this.movementServiceContainer.store({
         type: type,
         user_id: user_id,
         amount: amount,
-      } as MovementCreateDto);
+      } as IMovementCreateDto);
 
       res.sendStatus(200);
     } catch (error) {

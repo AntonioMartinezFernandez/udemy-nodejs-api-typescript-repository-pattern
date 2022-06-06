@@ -1,27 +1,27 @@
 import { ApplicationException } from '../common/exceptions/application.exception';
 
-import { Subscription } from '../repositories/domain/subscription';
-import { SubscriptionRepository } from '../repositories/subscription.repository';
+import { ISubscription } from '../repositories/domain/subscription';
+import { ISubscriptionRepository } from '../repositories/subscription.repository';
 
 import {
-  SubscriptionCreateDto,
-  SubscriptionUpdateDto,
+  ISubscriptionCreateDto,
+  ISubscriptionUpdateDto,
 } from '../dtos/subscription.dto';
 
 export class SubscriptionService {
   constructor(
-    private readonly subscriptionRepoContainer: SubscriptionRepository,
+    private readonly subscriptionRepoContainer: ISubscriptionRepository,
   ) {}
 
-  public async all(): Promise<Subscription[]> {
+  public async all(): Promise<ISubscription[]> {
     return this.subscriptionRepoContainer.all();
   }
 
-  public async find(id: number): Promise<Subscription | null> {
+  public async find(id: number): Promise<ISubscription | null> {
     return this.subscriptionRepoContainer.find(id);
   }
 
-  public async store(entry: SubscriptionCreateDto): Promise<void> {
+  public async store(entry: ISubscriptionCreateDto): Promise<void> {
     const existSubscription =
       await this.subscriptionRepoContainer.findByUserAndCode(
         entry.user_id,
@@ -29,13 +29,16 @@ export class SubscriptionService {
       );
 
     if (!existSubscription) {
-      await this.subscriptionRepoContainer.store(entry as Subscription);
+      await this.subscriptionRepoContainer.store(entry as ISubscription);
     } else {
       throw new ApplicationException('Subscription code already exists.');
     }
   }
 
-  public async update(id: number, entry: SubscriptionUpdateDto): Promise<void> {
+  public async update(
+    id: number,
+    entry: ISubscriptionUpdateDto,
+  ): Promise<void> {
     const originalSubscription = await this.subscriptionRepoContainer.find(id);
 
     const existSubscription =

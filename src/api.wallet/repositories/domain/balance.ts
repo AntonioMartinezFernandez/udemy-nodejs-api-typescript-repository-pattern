@@ -1,4 +1,4 @@
-export interface Balance {
+export interface IBalance {
   id: number;
   user_id: number;
   amount: number;
