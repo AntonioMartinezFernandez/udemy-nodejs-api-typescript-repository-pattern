@@ -10,6 +10,8 @@ dotenv.config({
 
 // Libraries
 import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
 import { loadControllers } from 'awilix-express';
 
 // Express app instance
@@ -17,6 +19,12 @@ const app: express.Application = express();
 
 // Body Parser
 app.use(express.json());
+
+// CORS
+app.use(cors());
+
+// Helmet
+app.use(helmet());
 
 // Dependency Injection Container
 import containerLoader from './container';
