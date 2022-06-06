@@ -3,7 +3,7 @@ import express from 'express';
 import { createContainer, asClass } from 'awilix';
 import { scopePerRequest } from 'awilix-express';
 
-// Import services and repositories to contain
+// Import services, repositories and utils to contain
 import { TestService } from './services/test.service';
 
 import { SubscriptionMySQLRepository } from './repositories/implementation/MySQL/subscription.MySQL.repository';
@@ -29,10 +29,10 @@ const containerLoader = (app: express.Application) => {
 
     //* Repositories
     //subscriptionRepoContainer: asClass(SubscriptionMySQLRepository).scoped(),
-    subscriptionRepoContainer: asClass(SubscriptionMongodbRepository).scoped(),
     //movementRepoContainer: asClass(MovementMySQLRepository).scoped(),
-    movementRepoContainer: asClass(MovementMongodbRepository).scoped(),
     //balanceRepoContainer: asClass(BalanceMySQLRepository).scoped(),
+    subscriptionRepoContainer: asClass(SubscriptionMongodbRepository).scoped(),
+    movementRepoContainer: asClass(MovementMongodbRepository).scoped(),
     balanceRepoContainer: asClass(BalanceMongodbRepository).scoped(),
 
     //* Services
