@@ -6,6 +6,7 @@ import {
   SubscriptionCreateDto,
   SubscriptionUpdateDto,
 } from '../dtos/subscription.dto';
+import { ApplicationException } from '../common/exceptions/application.exception';
 
 @route('/subscriptions')
 export class SubscriptionController extends BaseController {
@@ -20,33 +21,46 @@ export class SubscriptionController extends BaseController {
     try {
       res.send(await this.subscriptionServiceContainer.all());
     } catch (error) {
-      this.handleException(error, res);
+      return this.handleException(error, res);
     }
   }
 
   @route('/:id')
   @GET()
   public async subscriptionById(req: Request, res: Response) {
-    try {
-      const id = parseInt(req.params.id);
+    const sub_id = parseInt(req.params.id);
 
-      const result = await this.subscriptionServiceContainer.find(id);
-      if (result) {
-        res.send(result);
+    try {
+      const subscription = await this.subscriptionServiceContainer.find(sub_id);
+
+      if (subscription) {
+        res.send(subscription);
       } else {
         res.sendStatus(404);
       }
     } catch (error) {
-      this.handleException(error, res);
+      return this.handleException(error, res);
     }
   }
 
   @route('/store')
   @POST()
   public async store(req: Request, res: Response) {
-    try {
-      const { code, user_id, amount, cron } = req.body;
+    const { code, user_id, amount, cron } = req.body;
 
+    if (
+      code === undefined ||
+      user_id === undefined ||
+      amount === undefined ||
+      cron === undefined
+    ) {
+      return this.handleException(
+        new ApplicationException('Invalid data'),
+        res,
+      );
+    }
+
+    try {
       await this.subscriptionServiceContainer.store({
         code,
         user_id,
@@ -56,7 +70,7 @@ export class SubscriptionController extends BaseController {
 
       res.sendStatus(200);
     } catch (error) {
-      this.handleException(error, res);
+      return this.handleException(error, res);
     }
   }
 
@@ -78,7 +92,7 @@ export class SubscriptionController extends BaseController {
 
       res.sendStatus(200);
     } catch (error) {
-      this.handleException(error, res);
+      return this.handleException(error, res);
     }
   }
 
@@ -92,7 +106,7 @@ export class SubscriptionController extends BaseController {
 
       res.sendStatus(200);
     } catch (error) {
-      this.handleException(error, res);
+      return this.handleException(error, res);
     }
   }
 }

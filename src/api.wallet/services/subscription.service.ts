@@ -1,6 +1,8 @@
 import { ApplicationException } from '../common/exceptions/application.exception';
+
 import { Subscription } from '../repositories/domain/subscription';
 import { SubscriptionRepository } from '../repositories/subscription.repository';
+
 import {
   SubscriptionCreateDto,
   SubscriptionUpdateDto,
@@ -10,6 +12,7 @@ export class SubscriptionService {
   constructor(
     private readonly subscriptionRepoContainer: SubscriptionRepository,
   ) {}
+
   public async all(): Promise<Subscription[]> {
     return this.subscriptionRepoContainer.all();
   }

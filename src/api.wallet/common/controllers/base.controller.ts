@@ -7,7 +7,8 @@ export abstract class BaseController {
       res.status(400);
       res.send(error.message);
     } else {
-      throw new Error(error);
+      console.log(error);
+      res.sendStatus(501);
     }
   }
 }
