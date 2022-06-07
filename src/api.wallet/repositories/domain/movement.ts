@@ -6,5 +6,5 @@ export interface IMovement {
   type: MovementType;
   amount: number;
   created_at: Date | null;
-  update_at: Date | null;
+  updated_at: Date | null;
 }

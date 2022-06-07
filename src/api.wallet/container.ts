@@ -6,6 +6,10 @@ import { scopePerRequest } from 'awilix-express';
 // Import services, repositories and utils to contain
 import { TestService } from './services/test.service';
 
+import { SubscriptionMockRepository } from './repositories/implementation/Mock/subscription.mock.repository';
+import { MovementMockRepository } from './repositories/implementation/Mock/movement.mock.repository';
+import { BalanceMockRepository } from './repositories/implementation/Mock/balance.mock.repository';
+
 import { SubscriptionMySQLRepository } from './repositories/implementation/MySQL/subscription.MySQL.repository';
 import { MovementMySQLRepository } from './repositories/implementation/mysql/movement.MySQL.repository';
 import { BalanceMySQLRepository } from './repositories/implementation/mysql/balance.MySQL.repository';
@@ -28,9 +32,14 @@ const containerLoader = (app: express.Application) => {
     //!   nameOfInjectableModule: asClass(NameOfClassToInject).scoped()
 
     //* Repositories
+    // subscriptionRepoContainer: asClass(SubscriptionMockRepository).scoped(),
+    // movementRepoContainer: asClass(MovementMockRepository).scoped(),
+    // balanceRepoContainer: asClass(BalanceMockRepository).scoped(),
+
     //subscriptionRepoContainer: asClass(SubscriptionMySQLRepository).scoped(),
     //movementRepoContainer: asClass(MovementMySQLRepository).scoped(),
     //balanceRepoContainer: asClass(BalanceMySQLRepository).scoped(),
+
     subscriptionRepoContainer: asClass(SubscriptionMongodbRepository).scoped(),
     movementRepoContainer: asClass(MovementMongodbRepository).scoped(),
     balanceRepoContainer: asClass(BalanceMongodbRepository).scoped(),
