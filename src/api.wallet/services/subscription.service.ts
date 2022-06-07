@@ -55,13 +55,13 @@ export class SubscriptionService {
       originalSubscription.code = entry.code;
       originalSubscription.amount = entry.amount;
       originalSubscription.cron = entry.cron;
-      this.subscriptionRepoContainer.update(id, originalSubscription);
+      await this.subscriptionRepoContainer.update(id, originalSubscription);
     } else {
       throw new ApplicationException('Subscription doesnt exists.');
     }
   }
 
   public async remove(id: number): Promise<void> {
-    return this.subscriptionRepoContainer.remove(id);
+    await this.subscriptionRepoContainer.remove(id);
   }
 }
