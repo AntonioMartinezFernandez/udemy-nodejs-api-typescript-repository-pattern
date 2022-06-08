@@ -1,14 +1,20 @@
 import { IUser } from '../repositories/domain/user';
-import { IUserCreateDTO, IUserUpdateDTO } from '../dtos/user.dto';
+import {
+  IUserCreateDTO,
+  IUserLoggedDTO,
+  IUserUpdateDTO,
+} from '../dtos/user.dto';
 import { IUserRepository } from '../repositories/user.repository';
 
 import { ApplicationException } from '../common/exceptions/application.exception';
 import { Encrypter } from '../common/utils/encrypter';
+import { Jsonwebtoken } from '../common/utils/jsonwebtoken';
 
 export class UserService {
   constructor(
     private readonly userRepoContainer: IUserRepository,
     private readonly encrypterContainer: Encrypter,
+    private readonly jwtContainer: Jsonwebtoken,
   ) {}
 
   public async all(): Promise<IUser[] | null> {
@@ -65,6 +71,36 @@ export class UserService {
   }
 
   public async remove(id: number): Promise<void> {
-    await this.userRepoContainer.remove(id);
+    return await this.userRepoContainer.remove(id);
+  }
+
+  public async login(user: IUserCreateDTO): Promise<string> {
+    let userToLogin;
+
+    try {
+      userToLogin = await this.userRepoContainer.findByEmail(user.email);
+    } catch (error) {
+      throw new ApplicationException('Invalid request.');
+    }
+
+    if (!userToLogin) {
+      throw new ApplicationException('Invalid email.');
+    } else {
+      const match = await this.encrypterContainer.match(
+        user.password,
+        userToLogin.password,
+      );
+
+      if (match) {
+        const token = await this.jwtContainer.encryptUser({
+          id: userToLogin.id,
+          email: userToLogin.email,
+        } as IUserLoggedDTO);
+
+        return token as string;
+      }
+    }
+
+    throw new ApplicationException('Invalid request.');
   }
 }

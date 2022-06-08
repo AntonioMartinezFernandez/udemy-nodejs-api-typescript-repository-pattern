@@ -13,6 +13,7 @@ import { UserMongodbRepository } from './repositories/implementation/mongodb/use
 import { UserService } from './services/user.service';
 
 import { Encrypter } from './common/utils/encrypter';
+import { Jsonwebtoken } from './common/utils/jsonwebtoken';
 
 // Config container and register services and repositories
 const dependencyContainerLoader = (app: express.Application) => {
@@ -23,9 +24,9 @@ const dependencyContainerLoader = (app: express.Application) => {
     //!   nameOfInjectableModule: asClass(NameOfClassToInject).scoped()
 
     //* Repositories
-    // userRepoContainer: asClass(UserMockRepository).scoped(),
+    userRepoContainer: asClass(UserMockRepository).scoped(),
     // userRepoContainer: asClass(UserMysqlRepository).scoped(),
-    userRepoContainer: asClass(UserMongodbRepository).scoped(),
+    // userRepoContainer: asClass(UserMongodbRepository).scoped(),
 
     //* Services
     healthServiceContainer: asClass(HealthService).scoped(),
@@ -33,6 +34,7 @@ const dependencyContainerLoader = (app: express.Application) => {
 
     //* Utils
     encrypterContainer: asClass(Encrypter).scoped(),
+    jwtContainer: asClass(Jsonwebtoken).scoped(),
   });
 
   app.use(scopePerRequest(container));
