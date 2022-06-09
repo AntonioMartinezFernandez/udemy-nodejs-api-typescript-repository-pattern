@@ -33,5 +33,8 @@ npm run test
 ## Build for production
 
 1. #npm run build
-2. Copy /src/config folder to /dist/config
-3. #node ./dist/server.js
+2. Copy /src/api.auth/config folder to /dist/config folder
+3. Copy /src/api.auth/config folder to /dist/api.auth/config folder
+4. Copy /src/api.wallet/config folder to /dist/api.wallet/config folder
+5. #node ./dist/api.auth/server.js (initialize the Auth API server)
+6. #node ./dist/api.wallet/server.js (initialize the Wallet API server)

@@ -1,11 +1,16 @@
 import { BaseController } from '../common/controllers/base.controller';
 import { Request, Response } from 'express';
-import { route, GET, POST } from 'awilix-express';
+import { route, GET, POST, before } from 'awilix-express';
 import { MovementService } from '../services/movement.service';
 import { IMovementCreateDto } from '../dtos/movement.dto';
 import { ApplicationException } from '../common/exceptions/application.exception';
 
+// JWT Auth
+import { jwtAuth } from '../common/middleware/jwt.auth.middleware';
+const authenticator = new jwtAuth();
+
 @route('/movements')
+@before([authenticator.check])
 export class MovementController extends BaseController {
   constructor(private readonly movementServiceContainer: MovementService) {
     super();
@@ -13,6 +18,8 @@ export class MovementController extends BaseController {
 
   @GET()
   public async all(req: Request, res: Response) {
+    console.log(req.body.auth); //* Authenticated user data
+
     try {
       res.send(await this.movementServiceContainer.all());
     } catch (error) {

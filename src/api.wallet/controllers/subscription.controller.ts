@@ -1,6 +1,6 @@
 import { BaseController } from '../common/controllers/base.controller';
 import { Request, Response } from 'express';
-import { route, GET, POST, PUT, DELETE } from 'awilix-express';
+import { route, GET, POST, PUT, DELETE, before } from 'awilix-express';
 import { SubscriptionService } from '../services/subscription.service';
 import {
   ISubscriptionCreateDto,
@@ -8,7 +8,12 @@ import {
 } from '../dtos/subscription.dto';
 import { ApplicationException } from '../common/exceptions/application.exception';
 
+// JWT Auth
+import { jwtAuth } from '../common/middleware/jwt.auth.middleware';
+const authenticator = new jwtAuth();
+
 @route('/subscriptions')
+@before([authenticator.check])
 export class SubscriptionController extends BaseController {
   constructor(
     private readonly subscriptionServiceContainer: SubscriptionService,
@@ -18,6 +23,8 @@ export class SubscriptionController extends BaseController {
 
   @GET()
   public async allSubscriptions(req: Request, res: Response) {
+    console.log(req.body.auth); //* Authenticated user data
+
     try {
       res.send(await this.subscriptionServiceContainer.all());
     } catch (error) {

@@ -2,11 +2,11 @@
 import { app } from './app';
 
 // Default port
-const PORT = process.env.PORT || 3001;
+const PORT_AUTH = process.env.PORT || 3001;
 
 // Server runner
-app.listen(PORT, () => {
+app.listen(PORT_AUTH, () => {
   console.log(
-    `Auth Server listening on port ${PORT} in ${process.env.APP_ENV} mode`,
+    `Auth Server listening on port ${PORT_AUTH} in ${process.env.APP_ENV} mode`,
   );
 });

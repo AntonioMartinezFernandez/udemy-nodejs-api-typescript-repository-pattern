@@ -10,7 +10,7 @@ export class Jsonwebtoken {
         data: { user: dataToEncrypt },
       },
       secretKey,
-      { expiresIn: '1h' },
+      { expiresIn: '12h', algorithm: 'HS256' },
     );
 
     return token;

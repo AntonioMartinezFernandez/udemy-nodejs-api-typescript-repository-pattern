@@ -24,8 +24,8 @@ const dependencyContainerLoader = (app: express.Application) => {
     //!   nameOfInjectableModule: asClass(NameOfClassToInject).scoped()
 
     //* Repositories
-    userRepoContainer: asClass(UserMockRepository).scoped(),
-    // userRepoContainer: asClass(UserMysqlRepository).scoped(),
+    // userRepoContainer: asClass(UserMockRepository).scoped(),
+    userRepoContainer: asClass(UserMysqlRepository).scoped(),
     // userRepoContainer: asClass(UserMongodbRepository).scoped(),
 
     //* Services
